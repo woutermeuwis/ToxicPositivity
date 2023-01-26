@@ -1,0 +1,23 @@
+{
+  "name": "toxic-positivity",
+  "version": "1.0.0",
+  "description": "A discord bot to encourage you to post a daily diary entry.",
+  "main": "toxic-positivity.js",
+  "scripts": {
+    "test": "standard && echo \"standard-js analysis found no issues!\" && exit 0",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/woutermeuwis/ToxicPositivity.git"
+  },
+  "author": "Wouter Meuwis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/woutermeuwis/ToxicPositivity/issues"
+  },
+  "homepage": "https://github.com/woutermeuwis/ToxicPositivity#readme",
+  "dependencies": {
+    "husky": "^8.0.3"
+  }
+}
