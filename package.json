@@ -2,8 +2,9 @@
   "name": "toxic-positivity",
   "version": "1.0.0",
   "description": "A discord bot to encourage you to post a daily diary entry.",
-  "main": "toxic-positivity.js",
+  "main": "src/toxic-positivity.js",
   "scripts": {
+    "start": "node src/toxic-positivity.js",
     "test": "standard && echo \"standard-js analysis found no issues!\" && exit 0",
     "prepare": "husky install"
   },
@@ -18,6 +19,15 @@
   },
   "homepage": "https://github.com/woutermeuwis/ToxicPositivity#readme",
   "dependencies": {
-    "husky": "^8.0.3"
+    "@discordjs/builders": "^1.4.0",
+    "@discordjs/rest": "^1.5.0",
+    "discord-api-types": "^0.37.29",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "standard": "*"
   }
 }
