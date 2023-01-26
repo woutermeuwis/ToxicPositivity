@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders')
 const { defer, reply } = require('../helpers/interaction-helper')
 const { getGuildAsync, saveGuildAsync } = require('../helpers/guild-data')
 const { caseInsensitiveSort } = require('../helpers/sort-helper')
-const { EmbedBuilder } = require('discord.js')
+const { EmbedBuilder, PermissionFlagsBits } = require('discord.js')
 const { arrayIncludesString } = require('../helpers/array-helper')
 
 async function showQuestions (interaction) {
@@ -70,6 +70,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('questions')
     .setDescription('Beheer de verschillende vragen die de bot stelt')
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 
     .addSubcommand(sc => sc
       .setName('show')

@@ -14,6 +14,9 @@ async function addAutocompleteOptions (interaction) {
     case 'questions':
       await addQuestionsAutocompleteOptions(interaction)
       break
+    case 'schedule':
+      await addScheduleAutocompleteOptions(interaction)
+      break
   }
 }
 
@@ -52,6 +55,37 @@ async function addQuestionsAutocompleteOptions (interaction) {
     }
   }
   await interaction.respond(null)
+}
+
+async function addScheduleAutocompleteOptions (interaction) {
+  const { subCommand, optionName, optionValue } = parseInteraction(interaction)
+  const guild = await getGuildAsync(interaction.guildId)
+  let list
+  switch (optionName) {
+    case 'cron':
+      list = guild.questionTriggers.map(t => t.cron)
+      break
+    case 'category':
+      if (subCommand === 'add') {
+        list = Object.keys(guild.questions)
+      } else if (subCommand === 'remove') {
+        list = guild.questionTriggers.map(t => t.category)
+      } else {
+        list = []
+      }
+      break
+    default:
+      list = []
+      break
+  }
+  const filtered = list.filter(t => !optionValue || stringIncludes(t, optionValue, false))
+  if (filtered.length === 0) {
+    await interaction.respond(null)
+    return
+  }
+
+  const data = filtered.sort(caseInsensitiveSort).slice(0, AUTOCOMPLETE_MAX_RESULTS).map(x => ({ name: x, value: x }))
+  await interaction.respond(data)
 }
 
 function parseInteraction (interaction) {

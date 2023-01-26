@@ -43,7 +43,7 @@ async function saveGuildAsync (guildData) {
 
 function initGuild (guild) {
   if (!guild.questions) guild.questions = {}
-  if (!guild.questionTriggers) guild.questionTriggers = {}
+  if (!guild.questionTriggers) guild.questionTriggers = []
 }
 
 async function getAllGuildsAsync () {

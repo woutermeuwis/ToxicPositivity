@@ -21,6 +21,7 @@
   "dependencies": {
     "@discordjs/builders": "^1.4.0",
     "@discordjs/rest": "^1.5.0",
+    "cron": "^2.2.0",
     "discord-api-types": "^0.37.29",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
