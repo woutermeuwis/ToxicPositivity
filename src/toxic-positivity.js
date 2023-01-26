@@ -9,6 +9,7 @@ const log = require('./helpers/logger')
 const { reply } = require('./helpers/interaction-helper')
 const { addAutocompleteOptions } = require('./helpers/autocomplete-helper')
 const { modalHelper } = require('./helpers/modal-helper')
+const { scheduleTasksAsync } = require('./tasks/task-manager')
 
 require('dotenv').config()
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN
@@ -47,7 +48,7 @@ for (const command of cmds) {
 }
 
 // register commands
-(async function () {
+;(async function () {
   try {
     log.info('Refreshing application commands')
     if (GUILD_ID) {
@@ -66,6 +67,7 @@ async function executeCommand (interaction) {
   try {
     await command.execute(interaction)
   } catch (error) {
+    log.error(error)
     await reply(interaction, { content: 'Oei, ik ben nie mee', ephemeral: true })
   }
 }
@@ -75,7 +77,10 @@ async function populateAutocomplete (interaction) { await addAutocompleteOptions
 async function handleModalSubmit (interaction) { await modalHelper(interaction) }
 
 // register lifecycle handlers
-client.on('ready', _ => { log.info(`Logged in as ${client.user.tag}!`) })
+client.on('ready', _ => {
+  log.info(`Logged in as ${client.user.tag}!`)
+  scheduleTasksAsync(client).then(_ => log.info('set up tasks'))
+})
 
 client.on('interactionCreate', async interaction => {
   if (interaction.isCommand()) executeCommand(interaction)
